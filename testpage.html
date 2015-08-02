@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <script src="./node_modules/es-feature-tests/deploy/rs.js"></script>
+  </head>
+  <body>
+    <script>
+      window["Reflect.supports"]( "all", function(results,timestamp){
+      console.log( results );
+      });
+    </script>
+  </body>
+</html>

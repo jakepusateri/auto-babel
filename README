@@ -1,0 +1,3 @@
+./install.sh to install
+./run-tests.sh to run tests, files output to build/results in json format
+node processResults.js to list passing test count for each version
