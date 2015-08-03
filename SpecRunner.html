@@ -1,0 +1,18 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title>ES Spec Runner</title>
+
+    <script type="text/javascript" src="node_modules/es-feature-tests/lib/rs.js"></script>
+  </head>  
+  <body>
+    <script>
+      window["Reflect.supports"]( "all", function(results,timestamp){
+      console.log(JSON.stringify(results));
+      document.getElementById('out').innerHTML = JSON.stringify(results, null, 4);
+      });
+    </script>
+    <pre id="out"></pre>
+  </body>
+</html>
