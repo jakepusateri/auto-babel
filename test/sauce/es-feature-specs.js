@@ -69,7 +69,7 @@ describe('es feature extraction (' + name + ')', function () {
 	    .get("http://127.0.0.1:9999/SpecRunner.html")
 	    .waitForElementById('out', wd.asserters.textInclude('everything'), 10000, function (err, el) {
 		el.text(function (err, text) {
-		    fs.writeFileSync('./build/results/' + desired.browserName + desired.version + '.json', (text));
+		    fs.writeFileSync('./build/results/' + desired.blVersion + '.json', (text));
 		})
 	    })
 	    .nodeify(done);

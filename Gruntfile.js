@@ -60,5 +60,5 @@ module.exports = function(grunt) {
         grunt.registerTask('test:sauce:' + key, ['env:' + key, 'simplemocha:sauce']);
     });
 
-    grunt.registerTask('test:sauce:parallel', ['concurrent:test-sauce']);
+    grunt.registerTask('test:sauce:parallel', ['connect', 'concurrent:test-sauce']);
 };

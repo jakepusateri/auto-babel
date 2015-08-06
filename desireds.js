@@ -1,4 +1,15 @@
 'use strict';
+var bs = require('browserslist');
 var b2s = require('browserslist-saucelabs');
-var browsers = b2s({browsers: ['last 2 versions', '> 2%']})
+var versions = '> 0%';
+var browsers = [];
+for (var version of bs(versions)) {
+    var browser = b2s({browsers: version})
+    if (browser.length > 0) {
+	browser[0].blVersion = version;
+	browsers.push(browser[0]);
+    } else {
+	//console.error('Could not find appropriate sauce labs for: ' + version);
+    }
+}
 module.exports = browsers;
