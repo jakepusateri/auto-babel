@@ -1,12 +1,18 @@
 {
   "name": "auto-babel",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "dependencies": {
     "browserslist": "^0.5.0",
-    "caniuse-db": "^1.0.30000236"
+    "debug": "^2.2.0",
+    "yargs": "^3.18.0"
   },
+  "files": [
+    "index.js",
+    "cli.js",
+    "data.json"
+  ],
   "devDependencies": {
     "browserslist-saucelabs": "^0.1.4",
     "chai": "latest",
@@ -21,11 +27,12 @@
     "grunt-env": "latest",
     "grunt-simple-mocha": "latest",
     "sauce-tunnel": "^2.2.3",
-    "wd": "latest"
+    "wd": "^0.3.12"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "bin": "./cli.js",
+  "author": "jakepusateri@gmail.com",
+  "license": "MIT"
 }
