@@ -48,19 +48,19 @@ Run the tests
     
 Files are output to "build/results" in json format
 
-### browser tests
+### Browser tests
 The browser tests are run using [sauce labs](https://saucelabs.com/) so all tests can be run from a single computer.
 
-1. Add sauce labs credentials.
+1 - Add sauce labs credentials.
 ```
     export SAUCE_USERNAME=$USERNAME
     export SAUCE_ACCESS_KEY=$KEY
 ```
-2. Set up sauce connect tunnel
+2 - Set up sauce connect tunnel
 ```
     node_modules/sauce-tunnel/vendor/linux/bin/sc -D featuretests.io
 ```
-3. run the tests
+3 - Run the tests
 ```
     make run-browser
 ```
