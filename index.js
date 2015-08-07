@@ -1,6 +1,7 @@
 var debug = require('debug')('autobabel');
 var bs = require('browserslist');
 var data = require('./data.json');
+var semver = require('semver');
 var mappings = {
     "es6.arrowFunctions": ["arrow"],
     "es6.blockScoping": ["letConst","letLoop","constLoop"],
@@ -38,12 +39,30 @@ Object.keys(mappings).forEach(function(babelName) {
     });
     debug(babelName + ' passing in ' + count + ' of ' + Object.keys(data).length + ' environments');
 });
-var getBlacklist = function (versionString) {
+
+function calculateNodeVersions(nodeString) {
+    var possibleVersions = Object.keys(data).filter(function(version) {
+	return version.indexOf('v') === 0 || version.indexOf('iojs') === 0
+    }).filter(function(version) {
+	var normalized = version.replace('iojs-', '').replace(/^v/, '');
+	return semver.satisfies(normalized, nodeString);
+    });
+
+    debug(possibleVersions);
+
+    return possibleVersions;
+}
+
+var getBlacklist = function (browserString, nodeString) {
     var versions;
-    if (typeof versionString === 'string') {
-	versions = bs(versionString);
+    if (typeof browserString === 'string') {
+	versions = bs(browserString);
     } else {
 	versions = bs();
+    }
+
+    if (nodeString) {
+	versions = versions.concat(calculateNodeVersions(nodeString));
     }
 
     debug(versions);
