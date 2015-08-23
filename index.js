@@ -4,7 +4,7 @@ var data = require('./data.json');
 var semver = require('semver');
 var mappings = {
     "es6.arrowFunctions": ["arrow"],
-    "es6.blockScoping": ["letConst","letLoop","constLoop"],
+    "es6.blockScoping": ["letConst","letLoop","constLoop","letTDZ"],
     "es6.classes": ["classes"],
     "es6.constants": ["letConst","constLoop"],
     "es6.destructuring": ["destructuring","paramDestructuring"],
@@ -17,7 +17,7 @@ var mappings = {
     "es6.regex.sticky": ["stickyRegExp"],
     "es6.regex.unicode": ["unicodeRegExp"],
     "es6.spec.blockScoping": ["letTDZ","letLoopScope"],
-    "es6.spec.symbols": ["symbolImplicitCoercion"],
+    "es6.spec.symbols": ["symbol", "symbolImplicitCoercion"],
     "es6.spec.templateLiterals": ["templateString"],
     "es6.spread": ["spreadRest"],
     "es6.tailCall": ["TCO"],
@@ -27,6 +27,7 @@ var mappings = {
 
 Object.keys(mappings).forEach(function(babelName) {
     var count = 0;
+
     Object.keys(data).forEach(function (env) {
 	var supportsAll = true;
 	mappings[babelName].forEach(function (feature) {
