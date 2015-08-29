@@ -2,6 +2,7 @@ var debug = require('debug')('autobabel');
 var bs = require('browserslist');
 var data = require('./data.json');
 var semver = require('semver');
+var _uniq = require('lodash.uniq');
 var mappings = {
     "es6.arrowFunctions": ["arrow"],
     "es6.blockScoping": ["letConst","letLoop","constLoop","letTDZ"],
@@ -25,6 +26,11 @@ var mappings = {
     "regenerator": ["generator"]
 };
 
+var aliases = {
+    'and_chr': 'chrome',
+    'ie_mob': 'ie'
+};
+
 Object.keys(mappings).forEach(function(babelName) {
     var count = 0;
 
@@ -36,6 +42,8 @@ Object.keys(mappings).forEach(function(babelName) {
 	if (supportsAll) {
 	    count += 1;
 	    data[env][babelName] = true;
+	} else {
+	    data[env][babelName] = false;
 	}
     });
     debug(babelName + ' passing in ' + count + ' of ' + Object.keys(data).length + ' environments');
@@ -54,6 +62,10 @@ function calculateNodeVersions(nodeString) {
     return possibleVersions;
 }
 
+function getLatest(browser) {
+    return bs('last 1 ' + browser + ' versions')[0];
+}
+
 var getBlacklist = function (browserString, nodeString) {
     var versions;
     if (typeof browserString === 'string') {
@@ -67,17 +79,50 @@ var getBlacklist = function (browserString, nodeString) {
     }
 
     debug(versions);
-    
+
+    versions = versions.map(function (version) {
+	var browser = version.split(' ')[0];
+	var number = version.split(' ')[1];
+
+	// 0 is used to indicate unknown version
+	// so be optimistic and use latest
+	if (number == 0) {
+	    number = getLatest(browser).split(' ')[1];
+	    debug('found ' + browser + ' ' + number);
+	}
+
+	if (aliases[browser]) {
+	    browser = aliases[browser];
+	}
+
+	return browser + ' ' + number;
+    });
+
+    versions.forEach(function (version) {
+	if (data[version] === undefined) {
+	    debug(version + ' not found');
+	}
+    });
+
+    versions = _uniq(versions);
+
     var potentialBlacklist = [];
     Object.keys(mappings).forEach(function(babelName) {
 	var allPassed = true;
-	versions.forEach(function (env) {
+	for (var i = 0; i < versions.length && allPassed; i+=1) {
+	    var env = versions[i];
 	    if (data[env]) {
-		allPassed = allPassed && data[env][babelName];
+		if (data[env][babelName]) {
+		    allPassed = true;
+		} else {
+		    debug(babelName + ' unsupported in ' + env);
+		    allPassed = false;
+		}
 	    } else {
 		allPassed = false;
 	    }
-	});
+	}
+
 	if (allPassed) {
 	    potentialBlacklist.push(babelName);
 	}

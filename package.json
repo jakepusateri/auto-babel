@@ -1,11 +1,12 @@
 {
   "name": "auto-babel",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
     "browserslist": "^0.5.0",
     "debug": "^2.2.0",
+    "lodash.uniq": "^3.2.2",
     "semver": "^5.0.1",
     "yargs": "^3.21.0"
   },
@@ -15,7 +16,7 @@
     "data.json"
   ],
   "devDependencies": {
-    "browserslist-saucelabs": "^0.1.4",
+    "browserslist-saucelabs": "^0.1.5",
     "chai": "latest",
     "chai-as-promised": "latest",
     "colors": "latest",
