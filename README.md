@@ -2,7 +2,7 @@
 auto-babel is a project that aims to bring [autoprefixer](https://github.com/postcss/autoprefixer-core#usage)-like functionality to [babel](https://github.com/babel/babel).
 
 ## Word of warning
-Use with caution: auto-babel doesn't yet include support for android chrome. Also, the tests run ([es-feature-tests](https://github.com/getify/es-feature-tests)) aren't indicate of perfect spec compliance.
+Use with caution: the tests run ([es-feature-tests](https://github.com/getify/es-feature-tests)) aren't indicate of perfect spec compliance.
 
 ## Using auto-babel
 
