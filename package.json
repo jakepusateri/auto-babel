@@ -1,14 +1,14 @@
 {
   "name": "auto-babel",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "browserslist": "^0.5.0",
+    "browserslist": "^1.0.0",
     "debug": "^2.2.0",
     "lodash.uniq": "^3.2.2",
-    "semver": "^5.0.1",
-    "yargs": "^3.21.0"
+    "semver": "^5.0.3",
+    "yargs": "^3.24.0"
   },
   "files": [
     "index.js",
@@ -16,11 +16,11 @@
     "data.json"
   ],
   "devDependencies": {
-    "browserslist-saucelabs": "^0.1.5",
+    "browserslist-saucelabs": "^0.1.11",
     "chai": "latest",
     "chai-as-promised": "latest",
     "colors": "latest",
-    "es-feature-tests": "^0.2.1-a",
+    "es-feature-tests": "^0.3.0",
     "glob": "^5.0.14",
     "grunt": "~0.4.5",
     "grunt-concurrent": "latest",
