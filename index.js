@@ -74,12 +74,6 @@ var getBlacklist = function (browserString, nodeString) {
 	versions = bs();
     }
 
-    if (nodeString) {
-	versions = versions.concat(calculateNodeVersions(nodeString));
-    }
-
-    debug(versions);
-
     versions = versions.map(function (version) {
 	var browser = version.split(' ')[0];
 	var number = version.split(' ')[1];
@@ -97,6 +91,12 @@ var getBlacklist = function (browserString, nodeString) {
 
 	return browser + ' ' + number;
     });
+
+    if (nodeString) {
+	versions = versions.concat(calculateNodeVersions(nodeString));
+    }
+
+    debug(versions);
 
     versions.forEach(function (version) {
 	if (data[version] === undefined) {
