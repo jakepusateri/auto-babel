@@ -1,6 +1,6 @@
 {
   "name": "auto-babel",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
@@ -15,13 +15,17 @@
     "cli.js",
     "data.json"
   ],
+    "repository": {
+	"type": "git",
+	"url": "https://github.com/jakepusateri/auto-babel.git"
+    },
   "devDependencies": {
-    "browserslist-saucelabs": "^0.1.11",
+    "browserslist-saucelabs": "^0.2.1",
     "chai": "latest",
     "chai-as-promised": "latest",
     "colors": "latest",
     "es-feature-tests": "^0.3.0",
-    "glob": "^5.0.14",
+    "glob": "^6.0.1",
     "grunt": "~0.4.5",
     "grunt-concurrent": "latest",
     "grunt-contrib-connect": "^0.11.1",
@@ -29,7 +33,7 @@
     "grunt-env": "latest",
     "grunt-simple-mocha": "latest",
     "sauce-tunnel": "^2.2.3",
-    "wd": "^0.3.12"
+    "wd": "^0.4.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
