@@ -6,7 +6,7 @@ var path = require('path');
 glob('build/results/**.json', null, function (err, files) {
     var name;
     files.forEach(function (filename) {
-	var result = require('./' + filename);
+	var result = JSON.parse(fs.readFileSync(filename));
 	name = path.basename(filename, '.json');
 	results[name] = result;
 	var count = 0;

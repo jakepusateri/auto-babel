@@ -1,14 +1,12 @@
 #!/usr/bin/env node
 
-var autoBabel = require('./index.js');
+var autoBabel = require('./calculateWhiteList.js');
 var argv = require('yargs')
-    .alias('e', 'envs')
-    .example('$0 -e "last 2 Chrome versions"')
-    .alias('n', 'node')
-    .example('$0 -n "> 0.12.0"')
+    .alias('e', 'node')
+    .example('$0 -e "> 0.12.0"')
     .help('h')
     .alias('h', 'help')
     .argv;
-
-console.log(autoBabel(argv.envs, argv.node));
-
+var version = argv.node || process.version;
+console.log('Plugins required for ' + version);
+console.log(autoBabel(version));
