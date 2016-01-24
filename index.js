@@ -1,8 +1,9 @@
 var autoBabel = require('./calculateWhiteList.js');
 var debug = require('debug')('preset-auto');
-debug(autoBabel(process.env.PRESET_NODE_VERSION));
+var version = process.env.PRESET_NODE_VERSION || process.version;
+debug(autoBabel(version));
 module.exports = {
-    plugins: autoBabel(process.env.PRESET_NODE_VERSION).map(function (plugin) {
+    plugins: autoBabel(version).map(function (plugin) {
 	return require(plugin);
     })
 }

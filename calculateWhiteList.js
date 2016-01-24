@@ -1,6 +1,7 @@
-var debug = require('debug')('preset-es2015-auto');
+var debug = require('debug')('preset-auto');
 var data = require('./data.json');
 var semver = require('semver');
+var truncate = require('semver-truncate');
 
 function calculateNodeVersions(nodeString) {
     var possibleVersions = Object.keys(data).filter(function(version) {
@@ -10,17 +11,43 @@ function calculateNodeVersions(nodeString) {
 	return semver.satisfies(normalized, nodeString);
     });
 
-    debug(possibleVersions);
-
     return possibleVersions;
 }
 
 var calculateWhiteList = function (nodeString) {
-    var versions = [process.version],
-	plugins = {};
+    var knownVersions = Object.keys(data);
+    var versions = [];
+    var plugins = {};
 
-    if (nodeString) {
-	versions = versions.concat(calculateNodeVersions(nodeString));
+    versions = calculateNodeVersions(nodeString);
+
+    // Attempt reconciliation to account for delay in node releasing
+    // a new version and this module updating data
+    if (versions.length === 0 && semver.valid(nodeString))  {
+	var validVersion = semver.valid(nodeString);
+	var majorRoot = 'v' + truncate(validVersion, 'major');
+	if (knownVersions.indexOf(majorRoot) >= 0) {
+	    debug('Truncating to a recent on same major');
+	    versions.push(majorRoot);
+	} else {
+	    debug('Decrementing majors of ' + validVersion + ' until we find a a version that works');
+	    var version = semver.parse(validVersion);
+	    while (version.major >= 0) {
+		version.major = version.major - 1;
+		if (knownVersions.indexOf('v' + version.format()) >= 0) {
+		    var foundVersion = 'v'  + version.format();
+		    console.log('[WARN]', 'Could not satisfy ' + nodeString + '. Assuming feature support of ' + foundVersion);
+		    versions.push(foundVersion);
+		    break;
+		}
+	    }
+	}
+    }
+
+    debug(versions);
+
+    if (versions.length === 0)  {
+	throw new Error('babel-preset-es2015-auto unable to find an appropriate environment from: ' + nodeString);
     }
 
     versions.forEach(function (version) {

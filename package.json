@@ -1,6 +1,6 @@
 {
   "name": "babel-preset-es2015-auto",
-  "version": "1.0.0-beta",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
@@ -8,6 +8,7 @@
     "babel-preset-es2015": "^6.3.13",
     "debug": "^2.2.0",
     "semver": "^5.0.3",
+    "semver-truncate": "^1.1.0",
     "yargs": "^3.24.0"
   },
   "files": [

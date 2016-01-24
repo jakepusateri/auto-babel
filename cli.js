@@ -7,6 +7,6 @@ var argv = require('yargs')
     .help('h')
     .alias('h', 'help')
     .argv;
-var version = argv.node || process.version;
+var version = argv.node || process.env.PRESET_NODE_VERSION || process.version;
 console.log('Plugins required for ' + version);
 console.log(autoBabel(version));
