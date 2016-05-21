@@ -22,7 +22,7 @@
     "url": "https://github.com/jakepusateri/auto-babel.git"
   },
   "devDependencies": {
-    "babel-features": "^2.0.0-beta",
+    "babel-features": "hax/babel-features#2.x",
     "glob": "^6.0.1"
   },
   "scripts": {
