@@ -1,38 +1,65 @@
-# auto-babel
-auto-babel is a project that aims to bring [autoprefixer](https://github.com/postcss/autoprefixer-core#usage)-like functionality to [babel](https://github.com/babel/babel).
+# Deprecation Notice
+You should probably use https://github.com/babel/babel-preset-env instead of this.
 
-## Word of warning
-Use with caution: the tests run ([es-feature-tests](https://github.com/getify/es-feature-tests)) aren't indicate of perfect spec compliance.
+# babel-preset-es2015-auto
+babel-preset-es2015-auto is a project that aims to bring [autoprefixer](https://github.com/postcss/autoprefixer)-like functionality to [babel](https://github.com/babel/babel).
 
-## Using auto-babel
+## Install
 
-auto-babel outputs a list of transformers to blacklist based on feature support. For example, if all the browsers and environments you target support `let` and `const`, you don't need to run the `es6.blockScoping` transpiler.
+```sh
+$ npm install --save-dev babel-preset-es2015-auto
+```
 
-### API
+## Usage
 
-    var autoBabel = require('auto-babel');
+### Via `.babelrc` (Recommended)
 
-    var blacklistedTransformers = autoBabel('last 2 versions', '> 0.12.7');
-    babel.transform(code, { blacklist: blacklistedTransformers });
+**.babelrc**
+
+```json
+{
+  "presets": ["es2015-auto"]
+}
+```
+
+### Via CLI
+
+```sh
+$ babel script.js --presets es2015-auto
+```
+
+### Via Node API
+
+```javascript
+require("babel-core").transform("code", {
+  presets: ["es2015-auto"]
+});
+```
+
+babel-preset-es2015-auto only requires the transformers needed based on feature support. For example, if the node version you plan to use supports `let` and `const`, you don't need to run the `transform-es2015-block-scoping` plugin.
+
+Until preset options are figured out ([issue](https://phabricator.babeljs.io/T2756)), use the environment variable PRESET_NODE_VERSION to set minimum node to support.
+
+By default, the running version of node will be used.
+
+```sh
+$ PRESET_NODE_VERSION='> 5.4' babel script.js --presets es2015-auto
+```
 
 ### CLI
 
-     ./cli.js -e 'last 2 Chrome versions' -n '> 0.12.7'
-     
-      [ 'es6.blockScoping',
-        'es6.constants',
-        'es6.spec.blockScoping',
-        'es6.spec.symbols',
-        'es6.spec.templateLiterals',
-        'es6.templateLiterals',
-        'regenerator' ]
+     ./cli.js -e '> 5.4'
 
-## Running the tests
-### Environment setup
+    [ 'babel-plugin-transform-es3-property-literals',
+      'babel-plugin-transform-es2015-destructuring',
+      'babel-plugin-transform-es2015-function-name',
+      'babel-plugin-transform-es2015-parameters',
+      'babel-plugin-transform-es2015-sticky-regex',
+      'babel-plugin-transform-es2015-unicode-regex',
+      'babel-plugin-transform-es2015-modules-commonjs',
+      'babel-plugin-transform-regenerator' ]
 
-Install the grunt command line tool
-
-    npm install grunt-cli -g
+### Development
 
 Install project dependencies
 
@@ -44,23 +71,6 @@ Run the tests
     make run-node
     
 Files are output to "build/results" in json format
-
-### Browser tests
-The browser tests are run using [sauce labs](https://saucelabs.com/) so all tests can be run from a single computer.
-
-1 - Add sauce labs credentials.
-```
-    export SAUCE_USERNAME=$USERNAME
-    export SAUCE_ACCESS_KEY=$KEY
-```
-2 - Set up sauce connect tunnel
-```
-    node_modules/sauce-tunnel/vendor/linux/bin/sc -D featuretests.io
-```
-3 - Run the tests
-```
-    make run-browser
-```
 
 ### Process results
 
