@@ -1,3 +1,6 @@
+# Deprecation Notice
+You should probably use https://github.com/babel/babel-preset-env instead of this.
+
 # babel-preset-es2015-auto
 babel-preset-es2015-auto is a project that aims to bring [autoprefixer](https://github.com/postcss/autoprefixer)-like functionality to [babel](https://github.com/babel/babel).
 
