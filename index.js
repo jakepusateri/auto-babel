@@ -1,3 +1,4 @@
+require('babel-plugin-check-es2015-constants');
 var autoBabel = require('./calculateWhiteList.js');
 var debug = require('debug')('preset-auto');
 var version = process.env.PRESET_NODE_VERSION || process.version;
